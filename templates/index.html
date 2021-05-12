@@ -2,11 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    
+    <link rel="stylesheet" href="/static/css/main.css" /> 
+    <title>Todo List</title>
+    
 </head>
 <body>
-    <p> Hello </p>
+    <div id="container">
+        <h1> Todo List</h1>
+        <div> Add new item here 
+            <form action = "/add" method="POST">
+                <input type="text" name = "todoitem">
+                <input type="submit" value="Add Item">
+            </form>
+        </div>
+        <div>
+            <h2> Incomplete Items</h2>
+            <ul>
+                {% for todo in incomplete %}
+                    <li class="check"><input type="hidden" name = " {{ todo.id}}"> {{todo.text}} <a href="{{url_for('complete', id = todo.id )}}">  complete</a> <a href="{{url_for('delete', id = todo.id)}}"> Delete</a></li>
+                {% endfor %}
+            </ul>
+            <h2> Complete Items</h2>
+            <ul>
+                {% for todo in complete %}
+                    <li> {{todo.text}} <a href="{{url_for('delete', id = todo.id)}}"> Delete</a></li>
+                {% endfor %}
+            </ul>
+            
+        </div>
+    </div>
 </body>
 </html>
